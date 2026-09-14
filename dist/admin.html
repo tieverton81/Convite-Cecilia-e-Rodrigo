@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#302a24" />
+    <title>Painel dos noivos — Rodrigo &amp; Cecília</title>
+    <link rel="icon" type="image/png" href="assets/favicon-seal.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=Great+Vibes&amp;family=Montserrat:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="admin.css" />
+    <script src="/__/firebase/8.10.1/firebase-app.js" defer></script>
+    <script src="/__/firebase/8.10.1/firebase-auth.js" defer></script>
+    <script src="/__/firebase/8.10.1/firebase-firestore.js" defer></script>
+    <script src="/__/firebase/init.js" defer></script>
+    <script src="config.js" defer></script>
+    <script src="admin.js" defer></script>
+  </head>
+  <body>
+    <div class="admin-grain" aria-hidden="true"></div>
+
+    <main class="auth-shell" id="auth-view">
+      <section class="auth-card">
+        <img src="assets/wax-seal-cr.webp" alt="Monograma RC" />
+        <p class="admin-kicker">Área reservada</p>
+        <h1>Painel dos noivos</h1>
+        <p>Entre com a conta Google criada para administrar o casamento.</p>
+        <button class="primary-button" id="google-sign-in" type="button">
+          <span aria-hidden="true">G</span>
+          Entrar com Google
+        </button>
+        <a href="/" class="text-link">Voltar ao convite</a>
+        <p class="auth-feedback" id="auth-feedback" role="status"></p>
+      </section>
+    </main>
+
+    <main class="auth-shell" id="unauthorized-view" hidden>
+      <section class="auth-card">
+        <img src="assets/wax-seal-cr.webp" alt="" />
+        <p class="admin-kicker">Acesso não autorizado</p>
+        <h1>Conta diferente</h1>
+        <p>Este painel está disponível apenas para o e-mail administrativo do casamento.</p>
+        <p class="unauthorized-email" id="unauthorized-email"></p>
+        <button class="primary-button" id="switch-account" type="button">Trocar de conta</button>
+        <a href="/" class="text-link">Voltar ao convite</a>
+      </section>
+    </main>
+
+    <main class="admin-app" id="admin-dashboard" hidden>
+      <header class="admin-header">
+        <a class="admin-brand" href="/" aria-label="Abrir convite">
+          <img src="assets/favicon-seal.png" alt="" />
+          <span><b>Rodrigo &amp; Cecília</b><small>Painel dos noivos</small></span>
+        </a>
+        <div class="admin-user">
+          <span id="admin-user-email"></span>
+          <button class="quiet-button" id="sign-out" type="button">Sair</button>
+        </div>
+      </header>
+
+      <div class="admin-layout">
+        <aside class="admin-sidebar" aria-label="Navegação do painel">
+          <p class="sidebar-label">Gerenciamento</p>
+          <button class="nav-button is-active" type="button" data-tab="overview">
+            <span aria-hidden="true">⌂</span> Visão geral
+          </button>
+          <button class="nav-button" type="button" data-tab="gifts">
+            <span aria-hidden="true">□</span> Presentes
+          </button>
+          <button class="nav-button" type="button" data-tab="pix">
+            <span aria-hidden="true">◇</span> Configuração Pix
+          </button>
+          <button class="nav-button" type="button" data-tab="confirmations">
+            <span aria-hidden="true">✓</span> Confirmações
+            <b class="nav-count" id="pending-nav-count" hidden>0</b>
+          </button>
+          <a class="sidebar-preview" href="/#presentes" target="_blank" rel="noopener noreferrer">Visualizar lista ↗</a>
+        </aside>
+
+        <section class="admin-content">
+          <div class="admin-panel is-active" data-panel="overview">
+            <div class="panel-heading">
+              <div>
+                <p class="admin-kicker">Bem-vindos</p>
+                <h1>Visão geral</h1>
+              </div>
+              <span class="connection-status" id="connection-status">Conectando…</span>
+            </div>
+
+            <div class="stats-grid">
+              <article class="stat-card"><span>Presentes publicados</span><strong id="stat-gifts">0</strong></article>
+              <article class="stat-card"><span>Aguardando conferência</span><strong id="stat-pending">0</strong></article>
+              <article class="stat-card"><span>Pix confirmados</span><strong id="stat-pix">0</strong></article>
+            </div>
+
+            <div class="welcome-card">
+              <img src="assets/monogram-cr.png" alt="" />
+              <div>
+                <p class="admin-kicker">Lista de presentes</p>
+                <h2>Tudo em um só lugar</h2>
+                <p>
+                  Cadastrem presentes pelo link de afiliado, configurem a chave Pix e confirmem manualmente cada aviso enviado pelos convidados.
+                </p>
+                <button class="secondary-button" type="button" data-go-tab="gifts">Cadastrar primeiro presente</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" data-panel="gifts" hidden>
+            <div class="panel-heading">
+              <div>
+                <p class="admin-kicker">Curadoria dos noivos</p>
+                <h1>Presentes</h1>
+              </div>
+              <button class="primary-button compact-button" id="new-gift" type="button">Novo presente</button>
+            </div>
+
+            <section class="editor-card list-import-card">
+              <div class="card-heading">
+                <div><span>Importação em lote</span><h2>Trazer uma lista do Mercado Livre</h2></div>
+              </div>
+              <p class="list-import-intro">
+                Cole o link público da Lista de Afiliados. Antes de salvar, você poderá revisar e escolher os produtos.
+              </p>
+              <div class="form-field full-field">
+                <label for="affiliate-list-url">Link da lista de afiliados</label>
+                <div class="import-field">
+                  <input
+                    id="affiliate-list-url"
+                    type="url"
+                    inputmode="url"
+                    value="https://meli.la/14E9dtz"
+                    placeholder="https://meli.la/..."
+                    maxlength="2048"
+                  />
+                  <button class="secondary-button" id="import-gift-list" type="button">Ler lista completa</button>
+                </div>
+                <small id="list-import-feedback">A importação não publica nada até você confirmar a seleção.</small>
+              </div>
+
+              <div class="list-import-preview" id="list-import-preview" hidden>
+                <div class="list-import-toolbar">
+                  <p><b id="list-import-count">0 produtos encontrados</b><span>Revise a seleção antes de adicionar.</span></p>
+                  <div>
+                    <button class="quiet-button" id="select-all-imports" type="button">Selecionar todos</button>
+                    <button class="quiet-button" id="clear-all-imports" type="button">Desmarcar todos</button>
+                  </div>
+                </div>
+                <div class="list-import-items" id="list-import-items"></div>
+                <button class="primary-button save-button" id="save-imported-gifts" type="button">
+                  Adicionar selecionados à lista
+                </button>
+              </div>
+            </section>
+
+            <section class="editor-card" id="gift-editor">
+              <div class="card-heading">
+                <div><span>Cadastro</span><h2 id="gift-form-title">Novo presente</h2></div>
+                <button class="quiet-button" id="cancel-gift-edit" type="button" hidden>Cancelar edição</button>
+              </div>
+
+              <form id="gift-form">
+                <input id="gift-id" type="hidden" />
+                <div class="form-field full-field">
+                  <label for="affiliate-url">Link de afiliado do Mercado Livre</label>
+                  <div class="import-field">
+                    <input
+                      id="affiliate-url"
+                      type="url"
+                      inputmode="url"
+                      placeholder="https://mercadolivre.com/sec/..."
+                      maxlength="2048"
+                      required
+                    />
+                    <button class="secondary-button" id="import-gift" type="button">Importar nome e foto</button>
+                  </div>
+                  <small id="import-feedback">Cole o link gerado no Portal de Afiliados.</small>
+                </div>
+
+                <div class="gift-editor-grid">
+                  <div class="gift-image-preview" id="gift-image-preview">
+                    <img src="assets/monogram-cr.png" alt="Prévia do presente" />
+                    <span>Prévia da foto</span>
+                  </div>
+                  <div class="gift-fields-grid">
+                    <div class="form-field full-field">
+                      <label for="gift-title">Nome do presente</label>
+                      <input id="gift-title" type="text" maxlength="160" required />
+                    </div>
+                    <div class="form-field full-field">
+                      <label for="gift-image-url">Endereço da foto</label>
+                      <input id="gift-image-url" type="url" inputmode="url" maxlength="2048" required />
+                    </div>
+                    <div class="form-field full-field">
+                      <label for="gift-description">Descrição curta <span>(opcional)</span></label>
+                      <textarea id="gift-description" rows="3" maxlength="500"></textarea>
+                    </div>
+                    <div class="form-field">
+                      <label for="gift-category">Categoria</label>
+                      <input id="gift-category" type="text" maxlength="80" placeholder="Cozinha, quarto…" />
+                    </div>
+                    <div class="form-field">
+                      <label for="gift-price">Valor de referência <span>(opcional)</span></label>
+                      <input id="gift-price" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" />
+                    </div>
+                    <div class="form-field">
+                      <label for="gift-quantity">Quantidade</label>
+                      <input id="gift-quantity" type="number" min="1" max="99" step="1" value="1" required />
+                    </div>
+                    <div class="form-field">
+                      <label for="gift-order">Ordem na lista</label>
+                      <input id="gift-order" type="number" min="0" max="9999" step="1" value="0" />
+                    </div>
+                  </div>
+                </div>
+
+                <fieldset class="form-options">
+                  <legend>Opções para o convidado</legend>
+                  <label><input id="gift-active" type="checkbox" checked /><span>Exibir na lista</span></label>
+                  <label><input id="gift-in-person" type="checkbox" checked /><span>Permitir compra pessoal</span></label>
+                  <label><input id="gift-pix" type="checkbox" checked /><span>Permitir presente por Pix</span></label>
+                </fieldset>
+
+                <p class="form-feedback" id="gift-form-feedback" role="status"></p>
+                <button class="primary-button save-button" type="submit">Salvar presente</button>
+              </form>
+            </section>
+
+            <section class="list-section">
+              <div class="section-heading"><div><span>Lista atual</span><h2>Presentes cadastrados</h2></div><b id="gift-list-count">0 itens</b></div>
+              <div class="admin-gift-list" id="admin-gift-list"></div>
+              <p class="empty-state" id="admin-gift-empty">Nenhum presente cadastrado ainda.</p>
+            </section>
+          </div>
+
+          <div class="admin-panel" data-panel="pix" hidden>
+            <div class="panel-heading">
+              <div>
+                <p class="admin-kicker">Recebimento direto</p>
+                <h1>Configuração Pix</h1>
+              </div>
+            </div>
+
+            <section class="editor-card pix-settings-card">
+              <div class="pix-security-note">
+                <span aria-hidden="true">◇</span>
+                <p><b>Use preferencialmente uma chave aleatória.</b> A chave cadastrada ficará visível aos convidados na lista pública.</p>
+              </div>
+              <form id="pix-settings-form">
+                <label class="switch-field">
+                  <input id="pix-enabled" type="checkbox" />
+                  <span aria-hidden="true"></span>
+                  <b>Disponibilizar presente por Pix</b>
+                </label>
+                <div class="settings-grid">
+                  <div class="form-field">
+                    <label for="pix-key-type">Tipo de chave</label>
+                    <select id="pix-key-type">
+                      <option value="aleatoria">Chave aleatória</option>
+                      <option value="email">E-mail</option>
+                      <option value="telefone">Telefone</option>
+                      <option value="cpf_cnpj">CPF ou CNPJ</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="pix-key">Chave Pix</label>
+                    <input id="pix-key" type="text" maxlength="160" autocomplete="off" />
+                  </div>
+                  <div class="form-field">
+                    <label for="pix-recipient">Nome do titular</label>
+                    <input id="pix-recipient" type="text" maxlength="120" />
+                  </div>
+                  <div class="form-field">
+                    <label for="pix-city">Cidade do titular</label>
+                    <input id="pix-city" type="text" maxlength="80" placeholder="Teixeira de Freitas" />
+                  </div>
+                  <div class="form-field full-field">
+                    <label for="pix-bank">Banco <span>(opcional)</span></label>
+                    <input id="pix-bank" type="text" maxlength="100" />
+                  </div>
+                  <div class="form-field full-field">
+                    <label for="pix-copy-paste">Código Pix Copia e Cola <span>(opcional)</span></label>
+                    <textarea id="pix-copy-paste" rows="4" maxlength="1000" placeholder="Pode ser copiado no aplicativo do banco."></textarea>
+                    <small>Se não preencher, o convite mostrará apenas a chave Pix.</small>
+                  </div>
+                </div>
+                <p class="form-feedback" id="pix-form-feedback" role="status"></p>
+                <button class="primary-button save-button" type="submit">Salvar configuração Pix</button>
+              </form>
+            </section>
+          </div>
+
+          <div class="admin-panel" data-panel="confirmations" hidden>
+            <div class="panel-heading">
+              <div>
+                <p class="admin-kicker">Conferência manual</p>
+                <h1>Confirmações</h1>
+              </div>
+            </div>
+
+            <div class="confirmation-columns">
+              <section class="list-section confirmation-section">
+                <div class="section-heading"><div><span>Compras e reservas</span><h2>Presentes informados</h2></div></div>
+                <div class="confirmation-list" id="reservation-list"></div>
+                <p class="empty-state" id="reservation-empty">Nenhum aviso recebido.</p>
+              </section>
+              <section class="list-section confirmation-section">
+                <div class="section-heading"><div><span>Conferir no extrato</span><h2>Presentes por Pix</h2></div></div>
+                <div class="confirmation-list" id="pix-confirmation-list"></div>
+                <p class="empty-state" id="pix-confirmation-empty">Nenhum Pix informado.</p>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="toast" id="admin-toast" role="status" hidden></div>
+    <noscript><div class="no-script">Ative o JavaScript para acessar o painel.</div></noscript>
+  </body>
+</html>

@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fbfaf7" />
+    <meta name="description" content="Convite de casamento de Rodrigo Costa e Cecília Alves." />
+    <link rel="canonical" href="https://convite-cecilia-e-rodrigo.web.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Rodrigo &amp; Cecília — Nosso casamento" />
+    <meta property="og:description" content="14 de novembro de 2026, às 18 horas. Abra o nosso convite." />
+    <meta property="og:url" content="https://convite-cecilia-e-rodrigo.web.app/" />
+    <meta property="og:image" content="https://convite-cecilia-e-rodrigo.web.app/assets/share-preview.jpg" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="1400" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Rodrigo &amp; Cecília — 14 de novembro de 2026</title>
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-seal.png" />
+    <link rel="apple-touch-icon" href="assets/favicon-seal.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="assets/envelope-real-clean.webp" />
+    <link rel="preload" as="image" href="assets/hero-tree-v7.webp" fetchpriority="high" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Great+Vibes&amp;family=Montserrat:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="/__/firebase/8.10.1/firebase-app.js" defer></script>
+    <script src="/__/firebase/8.10.1/firebase-firestore.js" defer></script>
+    <script src="/__/firebase/init.js" defer></script>
+    <script src="config.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="gifts.js" defer></script>
+  </head>
+  <body class="is-locked">
+    <div class="grain" aria-hidden="true"></div>
+
+    <section class="envelope-screen" id="envelope-screen" aria-labelledby="opening-title">
+      <div class="opening-copy">
+        <p class="opening-kicker">Você recebeu um convite especial</p>
+        <h1 id="opening-title">Rodrigo <span>&amp;</span> Cecília</h1>
+      </div>
+
+      <button class="envelope-trigger" id="envelope-trigger" type="button" aria-label="Abrir o convite de Rodrigo e Cecília">
+        <span class="envelope-scene" aria-hidden="true">
+          <img class="envelope-photo" src="assets/envelope-real-clean.webp" alt="" width="760" height="990" />
+        </span>
+        <span class="tap-instruction"><span class="tap-dot"></span> Toque no selo para abrir</span>
+      </button>
+    </section>
+
+    <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Pausar trilha instrumental" hidden>
+      <span aria-hidden="true">♪</span>
+      <span class="sound-label">Som</span>
+    </button>
+    <audio id="wedding-audio" src="assets/cant-help-falling-in-love-v7.mp3" preload="metadata" loop></audio>
+
+    <main id="invitation" class="invitation" aria-hidden="true">
+      <section class="hero" aria-labelledby="couple-names">
+        <img
+          class="hero-photo"
+          src="assets/hero-tree-v7.webp"
+          width="1536"
+          height="2048"
+          fetchpriority="high"
+          alt="Rodrigo e Cecília juntos junto a uma árvore"
+        />
+        <div class="hero-wash" aria-hidden="true"></div>
+        <div class="hero-monogram" aria-hidden="true">
+          <img src="assets/monogram-cr.png" alt="" />
+        </div>
+        <div class="hero-content reveal">
+          <p class="eyebrow">O início do nosso para sempre</p>
+          <h2 id="couple-names">Rodrigo <span>&amp;</span> Cecília</h2>
+          <p class="hero-date">14 de novembro de 2026</p>
+        </div>
+        <a class="scroll-cue" href="#mensagem" aria-label="Continuar lendo o convite">
+          <span>Descubra</span>
+          <span class="scroll-line" aria-hidden="true"></span>
+        </a>
+      </section>
+
+      <section class="verse section-pad" id="mensagem">
+        <div class="ornament reveal" aria-hidden="true">
+          <span></span><b><img src="assets/monogram-cr.png" alt="" /></b><span></span>
+        </div>
+        <blockquote class="reveal">
+          “ASSIM, JÁ NÃO SÃO DOIS, MAS UMA SÓ CARNE. PORTANTO, NÃO SEPARE O HOMEM O QUE DEUS UNIU”.
+        </blockquote>
+        <p class="reference reveal">MATEUS 19, 6</p>
+      </section>
+
+      <section class="blessing section-pad" aria-labelledby="blessing-title">
+        <p class="section-kicker reveal">Com a bênção de Deus e de seus pais</p>
+        <h2 id="blessing-title" class="sr-only">Pais dos noivos</h2>
+        <div class="parents reveal">
+          <div>
+            <span class="family-initial">R</span>
+            <p>Fábio Costa</p>
+            <p>Edna Costa</p>
+          </div>
+          <i aria-hidden="true"></i>
+          <div>
+            <span class="family-initial">C</span>
+            <p>Alessandro Alves</p>
+            <p>Terezinha Alves</p>
+          </div>
+        </div>
+        <p class="invite-line reveal">CONVIDAM PARA A CELEBRAÇÃO DE SEU CASAMENTO</p>
+      </section>
+
+      <figure class="photo-break reveal">
+        <img
+          class="celebration-photo"
+          src="assets/celebration-saint-v7.webp"
+          width="1536"
+          height="2048"
+          loading="lazy"
+          decoding="async"
+          alt="Rodrigo e Cecília juntos segurando uma imagem religiosa"
+        />
+        <div class="photo-fade" aria-hidden="true"></div>
+        <figcaption>Um amor para celebrar</figcaption>
+      </figure>
+
+      <section class="event section-pad" aria-labelledby="event-title">
+        <p class="section-kicker reveal">A realizar-se no dia</p>
+        <h2 id="event-title" class="event-date reveal">
+          <span class="event-day">14</span>
+          <span class="event-rule" aria-hidden="true"></span>
+          <span class="event-month">novembro</span>
+          <span class="event-year">2026</span>
+        </h2>
+        <p class="event-time reveal">Sábado, às 18 horas</p>
+
+        <div class="venue-card reveal">
+          <span class="venue-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M12 21s6-5.35 6-11a6 6 0 1 0-12 0c0 5.65 6 11 6 11Zm0-8.5A2.5 2.5 0 1 1 12 7a2.5 2.5 0 0 1 0 5.5Z" /></svg>
+          </span>
+          <p class="venue-label">Cerimônia</p>
+          <h3>Paróquia Santa Luzia</h3>
+          <address class="venue-address">
+            Av. João Paulo II, 90 - Vila Caraipe<br />
+            Teixeira de Freitas - BA, 45997-335
+          </address>
+          <p class="venue-pending" id="venue-pending">Abra a rota no Google Maps.</p>
+          <a
+            class="outline-button"
+            id="maps-link"
+            href="https://maps.app.goo.gl/WpbPDZEQMEfzUHRb7"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Ver localização</a>
+        </div>
+      </section>
+
+      <nav class="invitation-actions section-pad" aria-label="Ações do convite">
+        <a class="action-card reveal" href="#confirmacao">
+          <span class="action-number">01</span>
+          <span>
+            <b>Confirmar presença</b>
+            <small>Responder ao convite</small>
+          </span>
+          <span class="action-arrow" aria-hidden="true">↘</span>
+        </a>
+        <a class="action-card reveal" href="#presentes">
+          <span class="action-number">02</span>
+          <span>
+            <b>Lista de presentes</b>
+            <small>Escolha uma forma de presentear</small>
+          </span>
+          <span class="action-arrow" aria-hidden="true">↘</span>
+        </a>
+      </nav>
+
+      <section class="rsvp section-pad" id="confirmacao" aria-labelledby="rsvp-title">
+        <p class="section-kicker reveal">Celebre conosco</p>
+        <h2 id="rsvp-title" class="script-title reveal">Confirme sua presença</h2>
+        <p class="section-intro reveal">Sua resposta nos ajudará a preparar cada detalhe com carinho.</p>
+
+        <form class="rsvp-form reveal" id="rsvp-form" novalidate>
+          <div class="form-field">
+            <label for="guest-name">Nome completo</label>
+            <input id="guest-name" name="nome" type="text" autocomplete="name" required />
+            <small class="field-error" data-error-for="guest-name"></small>
+          </div>
+
+          <fieldset class="attendance-field">
+            <legend>Você poderá comparecer?</legend>
+            <div class="radio-options">
+              <label>
+                <input type="radio" name="presenca" value="Sim" required />
+                <span>Sim, com alegria</span>
+              </label>
+              <label>
+                <input type="radio" name="presenca" value="Não" required />
+                <span>Infelizmente, não</span>
+              </label>
+            </div>
+            <small class="field-error" data-error-for="presenca"></small>
+          </fieldset>
+
+          <div class="form-field" id="companions-field">
+            <label for="companions">Acompanhantes <span>(se indicados no convite)</span></label>
+            <input id="companions" name="acompanhantes" type="text" placeholder="Informe os nomes" />
+          </div>
+
+          <div class="form-field">
+            <label for="dietary">Restrição alimentar <span>(opcional)</span></label>
+            <input id="dietary" name="restricoes" type="text" />
+          </div>
+
+          <div class="form-field">
+            <label for="message">Mensagem aos noivos <span>(opcional)</span></label>
+            <textarea id="message" name="mensagem" rows="4"></textarea>
+          </div>
+
+          <p class="preview-notice" id="preview-notice">Modo de prévia: as respostas ainda não são enviadas à planilha.</p>
+          <button class="gold-button" id="rsvp-submit" type="submit">Confirmar presença</button>
+        </form>
+
+        <div class="rsvp-success" id="rsvp-success" role="status" tabindex="-1" hidden>
+          <span aria-hidden="true">✓</span>
+          <h3>Resposta preenchida</h3>
+          <p id="success-message">Nesta prévia, a resposta foi salva apenas neste aparelho.</p>
+          <button class="text-button" id="edit-response" type="button">Editar resposta</button>
+        </div>
+      </section>
+
+      <figure class="after-rsvp-photo reveal">
+        <img
+          src="assets/after-rsvp-v7.webp"
+          width="1536"
+          height="2048"
+          loading="lazy"
+          decoding="async"
+          alt="Rodrigo abraça Cecília, que olha para a câmera"
+        />
+        <div class="after-rsvp-fade" aria-hidden="true"></div>
+      </figure>
+
+      <section class="gifts section-pad" id="presentes" aria-labelledby="gifts-title">
+        <div class="gift-mark reveal" aria-hidden="true">
+          <img src="assets/monogram-cr.png" alt="" />
+        </div>
+        <p class="section-kicker reveal">Com carinho</p>
+        <h2 id="gifts-title" class="script-title reveal">Lista de presentes</h2>
+        <p class="section-intro reveal">
+          Sua presença é o nosso maior presente. Se desejar nos presentear, escolha uma das opções abaixo.
+        </p>
+
+        <div class="gift-loading reveal" id="gift-loading" role="status">
+          <span aria-hidden="true"></span>
+          <p>Carregando presentes…</p>
+        </div>
+        <div class="gift-grid" id="gift-grid" aria-live="polite"></div>
+        <div class="gift-empty reveal" id="gift-empty" hidden>
+          <p>A lista está sendo preparada com carinho.</p>
+        </div>
+
+        <article class="pix-gift-card reveal" id="pix-gift-card" hidden>
+          <span class="pix-gift-icon" aria-hidden="true">◇</span>
+          <div>
+            <p class="gift-card-kicker">Presente livre</p>
+            <h3>Presentear por Pix</h3>
+            <p>Escolha o valor e envie diretamente aos noivos.</p>
+          </div>
+          <button class="outline-button" id="open-general-pix" type="button">Ver chave Pix</button>
+        </article>
+
+        <p class="affiliate-disclosure reveal" id="affiliate-disclosure" hidden>
+          Alguns botões desta lista contêm links de afiliado do Mercado Livre.
+        </p>
+      </section>
+
+      <footer class="footer">
+        <p>Esperamos você para celebrar este dia conosco.</p>
+        <div class="footer-names">Rodrigo <span>&amp;</span> Cecília</div>
+        <time datetime="2026-11-14T18:00:00">14 · 11 · 2026</time>
+      </footer>
+    </main>
+
+    <dialog class="gift-dialog" id="reservation-dialog" aria-labelledby="reservation-title">
+      <button class="dialog-close" type="button" data-close-dialog aria-label="Fechar">×</button>
+      <p class="section-kicker">Avisar os noivos</p>
+      <h2 id="reservation-title">Reservar presente</h2>
+      <p class="dialog-intro" id="reservation-intro"></p>
+      <form id="reservation-form">
+        <input id="reservation-gift-id" type="hidden" />
+        <input id="reservation-gift-title" type="hidden" />
+        <input id="reservation-method" type="hidden" />
+        <div class="dialog-field">
+          <label for="reservation-name">Seu nome</label>
+          <input id="reservation-name" type="text" autocomplete="name" maxlength="120" required />
+        </div>
+        <div class="dialog-field">
+          <label for="reservation-contact">Telefone ou e-mail <span>(opcional)</span></label>
+          <input id="reservation-contact" type="text" maxlength="160" />
+        </div>
+        <div class="dialog-field">
+          <label for="reservation-message">Mensagem <span>(opcional)</span></label>
+          <textarea id="reservation-message" rows="3" maxlength="500"></textarea>
+        </div>
+        <p class="dialog-feedback" id="reservation-feedback" role="status"></p>
+        <button class="gold-button" type="submit">Enviar aviso</button>
+      </form>
+    </dialog>
+
+    <dialog class="gift-dialog pix-dialog" id="pix-dialog" aria-labelledby="pix-dialog-title">
+      <button class="dialog-close" type="button" data-close-dialog aria-label="Fechar">×</button>
+      <p class="section-kicker">Presente por Pix</p>
+      <h2 id="pix-dialog-title">Presentear os noivos</h2>
+      <p class="dialog-intro" id="pix-gift-description">Envie o valor desejado e depois avise os noivos.</p>
+
+      <div class="pix-details">
+        <div>
+          <span>Chave Pix</span>
+          <strong id="public-pix-key"></strong>
+        </div>
+        <button class="text-button" id="copy-pix-key" type="button">Copiar chave</button>
+        <p id="public-pix-owner"></p>
+        <button class="outline-button pix-copy-paste-button" id="copy-pix-code" type="button" hidden>
+          Copiar Pix Copia e Cola
+        </button>
+      </div>
+
+      <form id="pix-confirmation-form">
+        <input id="pix-gift-id" type="hidden" />
+        <input id="pix-gift-title" type="hidden" />
+        <div class="dialog-field">
+          <label for="pix-guest-name">Seu nome</label>
+          <input id="pix-guest-name" type="text" autocomplete="name" maxlength="120" required />
+        </div>
+        <div class="dialog-field">
+          <label for="pix-amount">Valor enviado</label>
+          <div class="currency-field"><span>R$</span><input id="pix-amount" type="number" min="0.01" max="1000000" step="0.01" inputmode="decimal" required /></div>
+        </div>
+        <div class="dialog-field">
+          <label for="pix-message">Mensagem <span>(opcional)</span></label>
+          <textarea id="pix-message" rows="3" maxlength="500"></textarea>
+        </div>
+        <p class="pix-review-note">O envio será conferido manualmente pelos noivos.</p>
+        <p class="dialog-feedback" id="pix-feedback" role="status"></p>
+        <button class="gold-button" type="submit">Já enviei o Pix</button>
+      </form>
+    </dialog>
+
+    <noscript>
+      <div class="noscript">Ative o JavaScript para abrir este convite.</div>
+    </noscript>
+  </body>
+</html>
